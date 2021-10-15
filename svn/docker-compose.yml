@@ -1,0 +1,25 @@
+#SVN
+#  1、在宿主机创建svn相关目录
+#  mkdir -p /data/svn/repo
+#  chmod 777 /data/svn/repo
+#  2、拉取最新镜像
+#  docker pull elleflorio/svn-server
+#  3、运行容器
+#  docker run --privileged=true -d --name svn-server -p 8011:80 -p 3690:3690 -v elleflorio/svn-server
+#  4、复制容器中SVN配置文件至宿主机
+#  docker cp svn-server:/etc/subversion /data/svn
+#  5、停止并移除容器
+#  docker stop svn-server
+#  docker rm svn-server
+
+version: '3'
+services:
+  svn: # http://localhost/svnadmin
+    container_name: svn-server
+    image: elleflorio/svn-server
+    restart: always
+    ports:
+      - "8081:80"
+      - "3690:3690"
+    volumes:
+      - "/home/svn:/home/svn"
